@@ -1,0 +1,58 @@
+% This file was created by matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figwidth,
+height=\figheight,
+at={(0\figwidth,0\figheight)},
+scale only axis,
+xmin=2,
+xmax=5,
+xlabel style={font=\color{white!15!black}},
+xlabel={$\log(x), x= \mathrm{O}_2$ tension},
+ymin=-1,
+ymax=5,
+ylabel style={font=\color{white!15!black}},
+ylabel={$\log\left(\frac{f_b}{1-f_b}\right)$},
+axis background/.style={fill=white},
+axis x line*=bottom,
+axis y line*=left,
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot[only marks, mark=o, mark options={}, mark size=1.5000pt, draw=mycolor1] table[row sep=crcr]{%
+x	y\\
+2.30258509299405	-0.575364144903562\\
+2.70805020110221	0.241162056816888\\
+2.99573227355399	0.847297860387203\\
+3.2188758248682	1.3249254147436\\
+3.40119738166216	1.73460105538811\\
+3.68887945411394	2.31363492918063\\
+3.91202300542815	2.75153531304195\\
+4.60517018598809	4.59511985013459\\
+};
+\addlegendentry{exp. data}
+
+\addplot[only marks, mark=o, mark options={}, mark size=1.5000pt, draw=mycolor2] table[row sep=crcr]{%
+x	y\\
+2.30258509299405	-0.575364144903562\\
+2.70805020110221	0.241162056816888\\
+2.99573227355399	0.847297860387203\\
+3.2188758248682	1.3249254147436\\
+3.40119738166216	1.73460105538811\\
+3.68887945411394	2.31363492918063\\
+3.91202300542815	2.75153531304195\\
+4.60517018598809	4.59511985013459\\
+};
+\addlegendentry{linear approx. with intercept}
+
+\addplot [color=red, dashed, forget plot]
+  table[row sep=crcr]{%
+2.30258509299405	-0.674629649163443\\
+4.60517018598809	4.42497773963425\\
+};
+\end{axis}
+\end{tikzpicture}%
