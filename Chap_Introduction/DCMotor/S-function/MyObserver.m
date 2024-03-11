@@ -1,5 +1,4 @@
 function  [sys, x0]  = Myobserver(t,x,u,flag)
-
 umax=10;
 Observer.z=0.7;
 Observer.tr=0.4;
