@@ -1,0 +1,68 @@
+theta=States(:,1);
+thetab=NoisyStates(:,1);
+% Plot theta thetab versus time
+figure(1);
+plot(t,theta,'b',t,thetab,'r')
+legend({'$\theta$ (blue)','$\theta$ Noisy (red)'},'Interpreter','latex');
+xlabel('$t$ [s]','Interpreter','latex');
+ylabel('$\theta$ [rad]','Interpreter','latex');
+% select the time window (data for estimation)
+len=length(t);pas=t(len)/len;
+tinf=0;
+fitFirstDataInd=round(tinf/pas)+1; %1
+tfin=0.1;
+fitEndDataInd=round(tfin/pas); %4000
+% Select data for fitting
+t_fit = t(fitFirstDataInd:fitEndDataInd) - t(fitFirstDataInd);
+f_fit = thetab(fitFirstDataInd:fitEndDataInd);
+%\theta(0)+ ku_0 \left(t+\tau \left(\exp\left(-\frac{t}{\tau}\right)-1\right)\right).
+modelfun = @(param,t)(param(1)+param(2)*u_0*(t+param(3)*(exp(-t/param(3))-1));
+
+prompt = 'Initial guess [theta0,k,tau] for exemple [0;0.6;0.008]?';
+InitialGuess=input(prompt);
+% Nonlinear fit
+[param,r,j] = nlinfit(t_fit,f_fit,modelfun,InitialGuess);
+y0 = param(1);
+k = param(2);
+tau = param(3);
+disp(['NLINFIT result: y0=',num2str(y0),', k=',num2str(k),', tau=',num2str(tau)]);
+
+
+
+% Simulation using the obtained parameters
+omega_sim = modelfun(param,t_fit);
+
+% Nominal parameters selection
+prompt = 'Select k';
+k_nom=input(prompt);
+prompt = 'Select a';
+a_nom=input(prompt);
+prompt = 'Select b (a+b=1!)';
+b_nom=input(prompt);
+prompt = 'Select pplus';
+pplus_nom=input(prompt);
+prompt = 'Select pmoins';
+pmoins_nom=input(prompt);
+param_nom = [k_nom, a_nom, b_nom, pplus_nom, pmoins_nom];
+if 4*a_nom*b_nom>1 
+    disp('a_nom,b_nom OK');
+    zeta_nom=sqrt(-1+1/(4*a_nom*b_nom));
+    omegan_nom=-(pplus_nom+pmoins_nom)/(2*zeta_nom); 
+else
+    disp('a_nom,b_nom PAS OK');
+end;
+
+% Simulation using the nominal parameters
+omega_sim_nom = modelfun(param_nom,t_fit);
+
+% Comparison between 3 datas sets
+% experimental data 'b',
+% simulated data with the obtained parameters 'r'
+% simulated data with the chosen nominal parameters 'g'
+figure;
+plot(t_fit,omega_sim,'r',t_fit,f_fit,'b',t_fit,omega_sim_nom,'g');
+grid on;
+legend('simulated value with estimated param','mesured value','nominal model');
+ylabel('Omega(rad/s)');
+xlabel('time(s)');
+
