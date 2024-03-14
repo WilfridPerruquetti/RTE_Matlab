@@ -16,7 +16,7 @@ IC.ir=0.1;IC.thetar=1;IC.omegar=0.2;
 
 % Noise
 Noise.biais=0;
-Noise.power=[3e-8];
+Noise.power=[0];
 Noise.sampling=Ts/4;
 Noise.seed=[23341]
 
