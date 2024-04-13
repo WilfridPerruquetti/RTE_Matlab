@@ -98,13 +98,21 @@ lena=length(ta);
 %% Final Figure
 %%%%
 %figure(5)
-plot(a(:,1),a(:,2),b(:,1),b(:,2))
+plot(a(:,1),a(:,2),'color','r');
+hold on;
+plot(b(:,1),b(:,2),'color', 'blue');
+hold on;
+legend('$x(0)=0.1,y(0)=0.5$','$x(0)=1,y(0)=1.5$','Interpreter','latex','Location','northwest')
 axis([-1.5 1.5 -1.5 1.5])
 pbaspect([1 1 1])
 xlabel('$x$','Interpreter','latex')
 ylabel('$y$','Interpreter','latex')
 title('$(x(t),y(t))$','Interpreter','latex')
-legend({'$x(0)=0.1,y(0)=0.5$','$x(0)=1,y(0)=1.5$'},'Interpreter','latex','Location','northwest')
+L = legend;
+L.AutoUpdate = 'off'; 
+arrowPlot(a(:,1),a(:,2),'number', 4, 'color', 'r');
+hold on;
+arrowPlot(b(:,1),b(:,2),'number', 4, 'color', 'blue');
 
 saveas(gcf,'Figures/Figure5.pdf')
 set(gcf,'Units','centimeters');
