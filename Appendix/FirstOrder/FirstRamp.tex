@@ -1,0 +1,83 @@
+% This file was created by matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figwidth,
+height=\figheight,
+at={(0\figwidth,0\figheight)},
+scale only axis,
+xmin=0,
+xmax=10,
+xlabel style={font=\color{white!15!black}},
+xlabel={$t [s]$},
+ymin=0,
+ymax=10,
+ylabel style={font=\color{white!15!black}},
+ylabel={$y(t)$},
+axis background/.style={fill=white}
+]
+\addplot [color=mycolor1, forget plot]
+  table[row sep=crcr]{%
+0	0\\
+0.0700000000000003	0.00239376050770446\\
+0.140000000000001	0.00935810909755652\\
+0.210000000000001	0.0205840543621392\\
+0.279999999999999	0.0357834938013415\\
+0.359999999999999	0.0576760205158777\\
+0.44	0.0840360552260719\\
+0.529999999999999	0.118604547016712\\
+0.619999999999999	0.157943929211372\\
+0.720000000000001	0.206751639521055\\
+0.82	0.260430881851375\\
+0.93	0.324552721297547\\
+1.05	0.399936472709081\\
+1.17	0.480365296964983\\
+1.3	0.572529652255074\\
+1.44	0.676925105897494\\
+1.6	0.801893230309956\\
+1.77	0.940328701435371\\
+1.96	1.10085303454337\\
+2.17	1.28417116188602\\
+2.4	1.49070950020385\\
+2.66	1.72993809525955\\
+2.96	2.01180620281954\\
+3.32	2.3561363685707\\
+3.76	2.78326407184373\\
+4.32	3.33327295376961\\
+5.08	4.08618042250332\\
+6.26	5.26184724222483\\
+8.66	7.66013423151668\\
+10	9.00003181342485\\
+};
+\node[right, align=left]
+at (axis cs:5.99,4.992) {$\leftarrow y(t)=k \left( (t-\tau)+\tau\exp\left( -\frac{t}{\tau}\right)\right).$};
+\addplot [color=mycolor2, forget plot]
+  table[row sep=crcr]{%
+0.9	-0.0999999999999996\\
+10	9\\
+};
+\node[right, align=left]
+at (axis cs:3.5,2.5) {$\leftarrow$ slope $k$};
+\end{axis}
+
+\begin{axis}[%
+width=1.227\figwidth,
+height=1.227\figheight,
+at={(-0.16\figwidth,-0.135\figheight)},
+scale only axis,
+xmin=0,
+xmax=1,
+ymin=0,
+ymax=1,
+axis line style={draw=none},
+ticks=none,
+axis x line*=bottom,
+axis y line*=left,
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\end{axis}
+\end{tikzpicture}%

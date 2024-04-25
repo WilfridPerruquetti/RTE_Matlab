@@ -76,3 +76,34 @@ print -dpdf -painters FirstStep
 
 cleanfigure;
 matlab2tikz('FirstStep.tex','width','\figwidth','height','\figheight','showInfo',false);
+
+figure(3)
+options = odeset('RelTol',1e-5);%,'Stats','on','OutputFcn',@odeplot) 
+[t,y]=ode23(@(t,y) -y+k*t,[0:0.01:10],0,options);
+plot(t,y);
+text(t(600),y(600),'$\leftarrow y(t)=k \left( (t-\tau)+\tau\exp\left( -\frac{t}{\tau}\right)\right).$','interpreter','latex');
+ylim([0 10]);
+hold on
+x=0:0.1:10;
+y=x-1;
+plot(x,y)
+text(3.5,2.5,'$\leftarrow$ slope $k$','interpreter','latex')
+x = [0.21 0.21];
+y = [0.21 0.11];
+annotation('textarrow',x,y,'String','$\tau$','interpreter','latex')
+xlabel('$t [s]$','interpreter','latex')
+ylabel('$y(t)$','interpreter','latex')
+hLeg = legend('example')
+set(hLeg,'visible','off')
+
+set(gcf,'Units','centimeters');
+screenposition = get(gcf,'Position');
+set(gcf,...
+    'PaperPosition',[0 0 screenposition(3:4)],...
+    'PaperSize',[screenposition(3:4)]);
+print -dpdf -painters FirstRamp
+
+cleanfigure;
+matlab2tikz('FirstRamp.tex','width','\figwidth','height','\figheight','showInfo',false);
+
+
