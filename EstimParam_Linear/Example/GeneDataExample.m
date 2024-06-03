@@ -20,21 +20,30 @@ figure(1)
 plot(t,y,t,ynoisy)
 
 %% generate data frequency response
-freq = logspace(-1,1,50);
+freq = logspace(-2,1,150);
 len2=length(freq);
-[mag,phase] = bode(tf([1 0.2],[1 2 1 1]),freq);
+[mag,phase] = bode(tf(num,den),freq);
 data = frd(mag.*exp(1j*phase*pi/180),freq);
 
 noise=0.05*randn(len2,1);
 for i=1:len2
     Mymag(i)=mag(:,:,i);
     MyPhase(i)=phase(:,:,i);
-    if i<len2-5
+    if i<len2-110
+        magNoisy(i)=mag(:,:,i)+noise(i)/5;
+        PhaseNoisy(i)=phase(:,:,i)+20*noise(i);
+    elseif i<len2-90
+        magNoisy(i)=mag(:,:,i)+noise(i)/3;
+        PhaseNoisy(i)=phase(:,:,i)+30*noise(i);
+    elseif i<len2-60
+        magNoisy(i)=mag(:,:,i)+noise(i)/3;
+        PhaseNoisy(i)=phase(:,:,i)+50*noise(i);
+    elseif i<len2-40
         magNoisy(i)=mag(:,:,i)+noise(i);
         PhaseNoisy(i)=phase(:,:,i)+100*noise(i);
     else
-        magNoisy(i)=mag(:,:,i);
-        PhaseNoisy(i)=phase(:,:,i);
+        magNoisy(i)=mag(:,:,i)+noise(i)/30;
+        PhaseNoisy(i)=phase(:,:,i)+20*noise(i);
     end
 end
 
@@ -55,6 +64,6 @@ loglog(freq,magNoisy)
 
 subplot(2,1,2)
 grid on;
-semilogx(freq,PhaseNoisy)
+semilogx(freq,MyPhase)
 hold on;
 semilogx(freq,PhaseNoisy)

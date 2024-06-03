@@ -1,0 +1,52 @@
+% This file was created by matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figwidth,
+height=\figheight,
+at={(0\figwidth,0\figheight)},
+scale only axis,
+xmin=0,
+xmax=0.25,
+xlabel style={font=\color{white!15!black}},
+xlabel={time $t$ [s]},
+ymin=-0.6,
+ymax=0.1,
+ylabel style={font=\color{white!15!black}},
+ylabel={$\log(z(t))$},
+axis background/.style={fill=white},
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot [color=red]
+  table[row sep=crcr]{%
+0	0.00823222767460297\\
+0.01	-0.0250965697437181\\
+0.02	-0.0859032237254337\\
+0.03	-0.122578904362577\\
+0.04	-0.151769927011127\\
+0.05	-0.253156078106889\\
+0.0600000000000001	-0.249108237761784\\
+0.0700000000000001	-0.251849786843375\\
+0.08	-0.263934638851776\\
+0.09	-0.331053690448562\\
+0.1	-0.328021422108938\\
+0.11	-0.348706420459365\\
+0.12	-0.361444744494532\\
+0.13	-0.353014450694933\\
+0.14	-0.416684043288116\\
+0.15	-0.462158197011347\\
+0.16	-0.484358101578757\\
+0.17	-0.473635608487823\\
+0.18	-0.486071292026022\\
+0.19	-0.471724176691758\\
+0.2	-0.535037212202089\\
+0.21	-0.482773545942154\\
+0.22	-0.507445690959643\\
+0.23	-0.530613262237246\\
+0.24	-0.541573454534949\\
+};
+\addlegendentry{data1}
+
+\end{axis}
+\end{tikzpicture}%

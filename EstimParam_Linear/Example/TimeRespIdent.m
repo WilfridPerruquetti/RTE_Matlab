@@ -125,43 +125,6 @@ print -dpdf -painters Figures/ExFigTempCompare
 cleanfigure;
 matlab2tikz('Figures/ExFigTempCompare.tex','width','\figwidth','height','\figheight','showInfo',false);
 
-%% Using Sysid
-u=ones(len1,1);
-Data = iddata(ynoisy,u,Ts);
-get(Data);
-% select data for identif
-% window ident
-window=len1;
-DataIdent = Data(1:window); % Select range for data 
-figure(3)
-plot(DataIdent);
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Estimate models parameters  %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% state spasce model parameter estimation
-m1 = ssest(DataIdent,3) % select dimension of state (here 2)
-[num1,den1]=ss2tf(m1.A,m1.B,m1.C,m1.D);
-tf1=tf(num1,den1);
-% arx model parameter estimation
-m2 = arx(DataIdent,[3 2 0]) % select orders (here 3 2 and no delay)
-tf2=d2c(m2,'zoh');
-% transfert function parameter estimation
-m3 = tfest(DataIdent, 3, 2, 0, 'Ts', Ts) % select np=2,nz=1,iodelay=0 discrete model using Ts
-m3c=d2c(m3,'zoh');
-tf3=tf(m3c.Numerator,m3c.Denominator) % from transfert function obtain new state space model parameters
-% pem
-opt = n4sidOptions('Focus','simulation');
-init_sys = n4sid(DataIdent,3,opt); 
-init_sys.Report.Fit.FitPercent; % very small fit 2% with initial model
-m4 = pem(DataIdent,init_sys,'Display','on','SearchMethod','lm'); 
-[num4,den4]=ss2tf(m4.A,m4.B,m4.C,m4.D);
-tf4=tf(num4,den4);
-%Validating the Estimated Model to Experimental Output
-figure(4)
-compare(DataIdent,m1,m2,m3,m4);
-set(gcf,'DefaultLegendLocation','best')
-
 
 
 
