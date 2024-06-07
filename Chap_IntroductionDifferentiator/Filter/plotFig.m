@@ -14,7 +14,11 @@ delay2=mean(Myzeroder-MyzeroderEulerNoise(2:s(1)))
 
 der2ndFilter=out.der2ndFilter;
 Myzeroder2ndFilter=find_zc(t,der2ndFilter,0);
-delay3=mean(Myzeroder-Myzeroder2ndFilter(3:s(1)+1))
+delay3=mean(Myzeroder-Myzeroder2ndFilter(2:s(1)))
+
+derDD=out.derDD;
+MyzeroderDD=find_zc(t,derDD,0);
+delay4=mean(Myzeroder-MyzeroderDD(2:s(1)))
 
 figure('Name','Euler Derivative no noise')
 plot(t,der,t,derEulerNonoise)
@@ -65,5 +69,21 @@ print -dpdf -painters Figures/Figure3
 
 cleanfigure;
 matlab2tikz('Figures/Figure3.tex','width','\figwidth','height','\figheight','showInfo',false);
+
+figure('Name','Dirty Derivative with noise')
+plot(t,der,t,derDD)
+xlabel('$t$','Interpreter','latex')
+ylabel('$\dot y(t)$','Interpreter','latex')
+legend({'$\dot f(t)=10 \cos(10t)$','$\hat{\dot y}(t)=y_{\textrm{DD}}(t)$'},'Interpreter','latex')
+
+set(gcf,'Units','centimeters');
+screenposition = get(gcf,'Position');
+set(gcf,...
+    'PaperPosition',[0 0 screenposition(3:4)],...
+    'PaperSize',[screenposition(3:4)]);
+print -dpdf -painters Figures/Figure4
+
+cleanfigure;
+matlab2tikz('Figures/Figure4.tex','width','\figwidth','height','\figheight','showInfo',false);
 
 

@@ -7,4 +7,5 @@ Noise.biais=0;
 
 
 z=0.7;
-wn=100;
+ts=0.05;
+wn=2.9/ts;

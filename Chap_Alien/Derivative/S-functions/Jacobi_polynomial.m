@@ -4,6 +4,9 @@
 % \displaystyle\sum_{j=0}^{n}\binom{n+\mu}{j}%
 % \binom{n+\kappa}{n-j}\left(  \tau-1 \right)  ^{n-j} \tau^{j}.
 % \end{equation}
+% Nota:
+% \binom{n+\mu}{j}=(n+\mu)!/((j!)(n+\mu-j)!)
+% gamma(x+1)=x!
 
 function[p]=Jacobi_polynomial(mu,k,n,t) 
 a=0;b=0;
