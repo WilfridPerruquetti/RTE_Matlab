@@ -15,12 +15,12 @@ elseif flag == 3
     else
         %% Discretisation de [0,1] pour le calcul integrale
         s=0:hInt:1; 
-        Q = zeros(1, Nw+1);
+        %Q = zeros(1, Nw+1);
         %Q = 6*(1-2.*s)/TWindow;%1rst order
         Q = (14.*s-15.*s.*s-2)/(TWindow*TWindow);%1rst order
-        lenQ=length(Q);
+        %lenQ=length(Q);
         Hp=zeros(1, Nw+1);
-        for i=1:lenQ
+        for i=1:Nw+1
             Hp(i)=Q(i)*x(i);
         end;
         for j=1:Nw

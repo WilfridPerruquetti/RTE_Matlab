@@ -13,13 +13,13 @@ tf=2;
 
 % Noise
 Noise.biais=0;
-Noise.power=[1e-8];%3e-6];
-Noise.sampling=Ts*100; %1000
+Noise.power=[1e-5];%3e-6];
+Noise.sampling=Ts*300; %1000
 Noise.seed=[23341];
 
 % (N+1) points pour l'intégrale
-NW=150; % pour Der3 utilise l'annulateur minimal
-%NW=1000 % pour Der utilise affine
+%NW=150; % pour Der3 utilise l'annulateur minimal
+NW=300; % pour Der utilise affine
 
 % TWindow (fenêtre de l'intégrale) 
 TWindow=Ts*NW
