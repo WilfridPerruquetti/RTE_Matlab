@@ -18,12 +18,10 @@ block.OutputPort(1).Complexity  = 'Real';
 block.NumDialogPrms     = 0;
 % Set up the continuous states.
 block.NumContStates = 2;
-% Reguster the sample times
+% Register the sample times
 dperiod = 0.5;
 doffset = 0;
-block.SampleTimes = 
-[0,       0           % sample time
-dperiod, doffset];
+block.SampleTimes =[0 0;dperiod doffset];
   
   % Specify the block's operating point compliance. The block operating 
   % point is used during the containing model's operating point save/restore)
