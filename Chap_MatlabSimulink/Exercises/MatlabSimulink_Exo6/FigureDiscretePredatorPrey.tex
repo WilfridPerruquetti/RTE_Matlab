@@ -1,0 +1,73 @@
+% This file was created by matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figwidth,
+height=\figheight,
+at={(0\figwidth,0\figheight)},
+scale only axis,
+xmin=0,
+xmax=5,
+xlabel style={font=\color{white!15!black}},
+xlabel={$t\, [s], \quad T_s=0.5\, [s]$},
+ymin=2,
+ymax=16,
+ylabel style={font=\color{white!15!black}},
+ylabel={$x_n,y_n,z_n$},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Discrete state},
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot[const plot, color=mycolor1] table[row sep=crcr] {%
+0	10\\
+0.5	10.58\\
+1	11.1715348533333\\
+1.5	11.7715800512703\\
+2	12.3766196753791\\
+2.5	12.9826290809757\\
+3	13.5850664973756\\
+3.5	14.1788758600727\\
+4	14.7585033384853\\
+4.5	15.3179300836159\\
+5	15.8507236571219\\
+};
+\addlegendentry{$x_n$}
+
+\addplot[const plot, color=mycolor2] table[row sep=crcr] {%
+0	4\\
+0.5	4.19733333333333\\
+1	4.40537182814815\\
+1.5	4.62473482120839\\
+2	4.85606276016689\\
+2.5	5.10001291723799\\
+3	5.35725372292702\\
+3.5	5.62845751200157\\
+4	5.91429147346778\\
+4.5	6.21540660682753\\
+5	6.53242451191437\\
+};
+\addlegendentry{$y_n$}
+
+\addplot[const plot, color=mycolor3] table[row sep=crcr] {%
+0	2\\
+0.5	2.0632\\
+1	2.12857461021867\\
+1.5	2.19621426386196\\
+2	2.26621447464972\\
+2.5	2.33867620313863\\
+3	2.41370624737879\\
+3.5	2.49141765762034\\
+4	2.57193017417529\\
+4.5	2.65537068678612\\
+5	2.74187371294797\\
+};
+\addlegendentry{$z_n$}
+
+\end{axis}
+\end{tikzpicture}%

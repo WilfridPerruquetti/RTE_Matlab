@@ -53,6 +53,4 @@ sys(2,1) = yn + ry*yn*(1 - yn/Ky) + axy*bxy*xn*yn - ayz*yn*zn;
 sys(3,1) = zn + rz*zn*(1 - zn/Kz) + ayz*byz*yn*zn;
 
 function sys = mdlOutputs(t,x,u)
-for i=1:3
-  sys(i,1) = x(i); 
-end;
+sys=x;

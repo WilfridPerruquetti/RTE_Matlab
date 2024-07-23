@@ -33,9 +33,25 @@ y=out.state(:,2);
 z=out.state(:,3);
 
 figure('Name','Discrete state')
-plot(t,x,t,y,t,z)
+stairs(t,x)
+hold on
+stairs(t,y)
+hold on
+stairs(t,z)
 
-title('Continuous state','Interpreter','latex')
-xlabel('$t$','Interpreter','latex')
-ylabel('$x,y,z$','Interpreter','latex')
+title('Discrete state','Interpreter','latex')
+xlabel('$t\, [s], \quad T_s=0.5\, [s]$','Interpreter','latex')
+ylabel('$x_n,y_n,z_n$','Interpreter','latex')
+legend('$x_n$','$y_n$','$z_n$','Interpreter','latex','Location','best')
+
+set(gcf,'Units','centimeters');
+screenposition = get(gcf,'Position');
+set(gcf,...
+    'PaperPosition',[0 0 screenposition(3:4)],...
+    'PaperSize',[screenposition(3:4)]);
+print -dpdf -painters FigureDiscretePredatorPrey
+
+cleanfigure;
+matlab2tikz('FigureDiscretePredatorPrey.tex','width','\figwidth','height','\figheight','showInfo',false);
+
 
