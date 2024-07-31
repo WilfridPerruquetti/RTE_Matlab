@@ -1,12 +1,14 @@
 function [sys,x0,str,ts] = Pendulum(t,x,u,flag,Params)
-m=Params(1);
-J=Params(2);
+%'Pendulum' \eqref{eq:ModelPendulum} with $g=9.81 \unit{\a}, \ell=1\, [\unit{\metre}], m=0.1\, [\unit{\kg}], \delta = 0.1\, [\unit{kg^{-1}.m^{-2}.s^{-1}}]$.
+l=Params(1);
+m=Params(2);
+delta=Params(3);
 g=9.81;
 switch flag,
   case 0         % Initialization
     [sys,x0,str,ts] = mdlInitializeSizes;
   case 1
-    sys = mdlDerivatives(t,x,u,m,J,g); % Calculate derivatives
+    sys = mdlDerivatives(t,x,u,l,m,delta,g); % Calculate derivatives
   case 3
     sys = mdlOutputs(t,x,u); % Calculate outputs
   case {2, 4, 9}
@@ -17,28 +19,21 @@ end
 
 function [sys,x0,str,ts] = mdlInitializeSizes
 sizes = simsizes;
-sizes.NumContStates  = 4;
+sizes.NumContStates  = 2;
 sizes.NumDiscStates  = 0;
-sizes.NumOutputs     = 4;
+sizes.NumOutputs     = 2;
 sizes.NumInputs      = 1;
 sizes.DirFeedthrough = 0;
 sizes.NumSampleTimes = 1;
 sys = simsizes(sizes);
-x0  = [0.1;0;-0.1;0];
+x0  = [0.1;0];
 str = [];
 ts  = [0, 0];
 
-function sys = mdlDerivatives(t,x,u,m,J,g)
-%\dot x_1&=& x_2,\\
-%\dot x_2&=& -g\sin (x_3 )+x_1x_3^{2}\\
-%\dot x_3&=& x_4,\\
-%\dot x_4&=& \frac{1}{(mx_1^{2}+J)} \left( u-2m x_1x_2x_4-mgx_1\cos (x_3 )\right),
-sys(1,1) = x(2);
-sys(2,1) = -g*sin(x(3))+x(1)*x(3)*x(3);
-sys(3,1) = x(4);
-sys(4,1) = (u(1)-2*m*x(1)*x(2)*x(4)-m*g*x(1)*cos(x(3)))/(m*x(1)*x(1)+J);
+function sys = mdlDerivatives(t,x,u,l,m,delta,g)
+%\ddot{\theta}+\frac{\delta}{m\ell^2} \dot \theta +\frac{g}{\ell}\sin(\theta)=\frac{u}{m\ell^2}. 
+sys(1) = x(2);
+sys(2) = -delta/(m*l*l)*x(2)-g/l*sin(x(1))+u/(m*l*l);
 
 function sys = mdlOutputs(t,x,u)
-for i=1:4
-  sys(i,1) = x(i); 
-end;
+sys=x;

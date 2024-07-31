@@ -2,8 +2,6 @@ clear all;
 clc;
 ti=0;
 tf=15;
-dt=1e-3;
-
 %% simulation
 mysys='SimuHybrid_Ex1';
 open_system(mysys);

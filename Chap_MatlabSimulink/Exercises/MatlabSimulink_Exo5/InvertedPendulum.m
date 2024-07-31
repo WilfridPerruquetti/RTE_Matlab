@@ -6,7 +6,7 @@ switch flag,
   case 0         % Initialization
     [sys,x0,str,ts] = mdlInitializeSizes;
   case 1
-    sys = mdlDerivatives(t,x,u,m,J,g); % Calculate derivatives
+    sys = mdlDerivatives(t,x,u,Params); % Calculate derivatives
   case 3
     sys = mdlOutputs(t,x,u); % Calculate outputs
   case {2, 4, 9}
@@ -28,17 +28,24 @@ x0  = [0.1;0;-0.1;0];
 str = [];
 ts  = [0, 0];
 
-function sys = mdlDerivatives(t,x,u,m,J,g)
-%\dot x_1&=& x_2,\\
-%\dot x_2&=& -g\sin (x_3 )+x_1x_3^{2}\\
-%\dot x_3&=& x_4,\\
-%\dot x_4&=& \frac{1}{(mx_1^{2}+J)} \left( u-2m x_1x_2x_4-mgx_1\cos (x_3 )\right),
-sys(1,1) = x(2);
-sys(2,1) = -g*sin(x(3))+x(1)*x(3)*x(3);
-sys(3,1) = x(4);
-sys(4,1) = (u(1)-2*m*x(1)*x(2)*x(4)-m*g*x(1)*cos(x(3)))/(m*x(1)*x(1)+J);
+function sys = mdlDerivatives(t,x,u,Params)
+M=Params(1);m=Params(2);l=Params(3);J=Params(4);g=Params(5);
+
+%\dot z_1&=& z_2, \label{eq:pendinvNL1}\\
+%\dot z_2&=& \frac{\left((J+m\ell^{2}) \left(F+m\ell{z_4}^{2}\sin(z_3)\right)-m^2g\ell^2 \sin(z_3)\cos(z_3)\right)}{M(J+m\ell^{2})+mJ+ m^2\ell^{2} (1-\cos^2(z_3))} ,\\
+%\dot z_3&=& z_4,\\
+%\dot z_4&=& \frac{\left(-m\ell\cos(z_3)  \left(F+m\ell{z_4}^{2}\sin(z_3)\right)+(M+m)mg\ell \sin(z_3)\right)}{M(J+m\ell^{2})+mJ+ m^2\ell^{2} (1-\cos^2(z_3))},\label{eq:pendinvNL4}
+det=M*(J+m*l*l)+m*J+ m*m*l*l*(1-cos(x(3))*cos(x(3)));
+a=(J+m*l*l);
+b=u+m*l*x(4)*x(4)*sin(x(3));
+c=(M+m);
+d=m*l*cos(x(3));
+e=m*g*l*sin(x(3));
+
+sys(1) = x(2);
+sys(2) = (a*b-d*e)/det;
+sys(3) = x(4);
+sys(4) = (-d*b+c*e)/det;
 
 function sys = mdlOutputs(t,x,u)
-for i=1:4
-  sys(i,1) = x(i); 
-end;
+sys=x;

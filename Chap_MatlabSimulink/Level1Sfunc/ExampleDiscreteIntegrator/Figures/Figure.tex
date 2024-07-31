@@ -1,0 +1,55 @@
+% This file was created by matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figwidth,
+height=\figheight,
+at={(0\figwidth,0\figheight)},
+scale only axis,
+xmin=0,
+xmax=5,
+xlabel style={font=\color{white!15!black}},
+xlabel={$t$},
+ymin=0,
+ymax=10,
+ylabel style={font=\color{white!15!black}},
+ylabel={$y_k$},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Discrete state},
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot[const plot, color=mycolor1] table[row sep=crcr] {%
+0	0\\
+0.4	0.198669330795061\\
+0.6	0.588087673103711\\
+0.800000000000001	1.15273014649875\\
+1	1.87008623739827\\
+1.2	2.71155722220617\\
+1.4	3.64359630817339\\
+1.6	4.62904603816185\\
+1.8	5.62861964120336\\
+2	6.60246727208155\\
+2.2	7.51176469890724\\
+2.4	8.32026110272682\\
+2.6	8.99572428327798\\
+2.8	9.51122565509944\\
+3	9.84621380525535\\
+3.2	9.98733381331521\\
+3.4	9.92895966988763\\
+3.6	9.6734185678608\\
+3.8	9.23089812456595\\
+4	8.61904023362323\\
+4.2	7.8622377383153\\
+4.4	6.99066196590171\\
+4.6	6.0390598920122\\
+4.8	5.04536888837873\\
+5	4.04920427954289\\
+};
+\addlegendentry{$y_k(t)$}
+
+\end{axis}
+\end{tikzpicture}%

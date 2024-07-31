@@ -7,7 +7,7 @@ sys = mdlOutputs(t, x, u);
 otherwise
 sys = [];
 end
-end
+% end
 
 function [sys, x0, str, ts] = mdlInitializeSizes()
 sizes = simsizes;
@@ -22,9 +22,9 @@ sys = simsizes(sizes);
 x0  = [];
 str = [];
 ts  = [0 0]; % Continuous time
-end
+% end mdlInitializeSizes
 
 function sys = mdlOutputs(t, x, u)
 gain = 2; % Example gain
 sys = gain * u;
-end
+% end mdlOutputs
