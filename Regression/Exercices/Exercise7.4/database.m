@@ -22,7 +22,6 @@ phase=table2array(CeresData(:,6));
 NewPhase=phase(phase>=0 & polarization>-500);
 NewPolarization=polarization(phase>=0 & polarization>-500);
 
-
 % Plot data
 figure('name','Ceres ADP')
 plot(NewPhase,NewPolarization,'bo');

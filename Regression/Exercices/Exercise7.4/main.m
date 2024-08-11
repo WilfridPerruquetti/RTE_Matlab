@@ -16,15 +16,12 @@ trigonometric_model = @(theta, x) theta(1)*sin(theta(2)*x).* cos(theta(3)*0.5*x)
 % theta_guess = [1.5; 1; 2; pi/6]
 theta_guess = [1, 0, 0, 30]; % Adjust as needed
 
-
-
 %% Perform nonlinear regression using lsqcurvefit
 nlintool(x_data, y_data,trigonometric_model,theta_guess);
 [theta_hat,R,J,COVB,MSE] = nlinfit(x_data, y_data,trigonometric_model,theta_guess);
 % Generate model predictions using estimated parameters
 x_line=0:0.1:25;
 y_line=trigonometric_model(theta_hat, x_line);
-
 y_est = trigonometric_model(theta_hat, x_data);
 
 %% Performance evaluation

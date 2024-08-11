@@ -1,0 +1,45 @@
+% This file was created by matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figwidth,
+height=\figheight,
+at={(0\figwidth,0\figheight)},
+scale only axis,
+xmin=0.002,
+xmax=0.011,
+xlabel style={font=\color{white!15!black}},
+xlabel={Displacement (m)},
+ymin=0.5,
+ymax=5.5,
+ylabel style={font=\color{white!15!black}},
+ylabel={Force (N)},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Force vs. Displacement},
+axis x line*=bottom,
+axis y line*=left,
+xmajorgrids,
+ymajorgrids,
+legend style={legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot[only marks, mark=o, mark options={}, mark size=1.5000pt, draw=blue] table[row sep=crcr]{%
+x	y\\
+0.0023	0.981\\
+0.0038	1.962\\
+0.0062	2.943\\
+0.0081	3.924\\
+0.011	4.905\\
+};
+\addlegendentry{Experimental Data}
+
+\addplot [color=red]
+  table[row sep=crcr]{%
+0.00229999999999997	1.16261322182063\\
+0.0110000000000001	5.05441346557956\\
+};
+\addlegendentry{Fit: F = 447.33 x}
+
+\end{axis}
+\end{tikzpicture}%
