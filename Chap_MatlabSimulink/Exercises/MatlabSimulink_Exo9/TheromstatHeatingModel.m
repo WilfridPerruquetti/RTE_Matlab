@@ -36,7 +36,6 @@ sys = simsizes(sizes);
 x0 = [5;0]; % Initial conditions for continuous and discrete states
 str = [];    % str is always an empty matrix
 ts  = [0 0]; % Continuous sample time
-       %1 0];% Discrete sample time
 
 function sys = mdlDerivatives(t, x, u,Params)
 % Params=[C;k;P;Tamb;Tlow;Thigh;Ts];

@@ -13,7 +13,7 @@ tf=N*Ts;
 
 % Noise
 Noise.biais=0;
-Noise.power=[3e-6];%3e-6];
+Noise.power=[0];%3e-6];%3e-6];
 Noise.sampling=Ts;
 Noise.seed=[23341];
 

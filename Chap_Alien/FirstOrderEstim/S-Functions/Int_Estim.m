@@ -1,4 +1,5 @@
 function  [sys, x0]  = Int_Estim(t,x,u,flag,N,Ts,P,Q)
+
 if  flag == 2
     % u(1)=u stocké dans x(1) à x(N)
     % u(2)=y stocké dans x(N+1) à x(2N)
@@ -27,7 +28,7 @@ elseif flag == 3
     PolyP=P(1).*NewTau.*NewTau+P(2).*NewTau+P(3);
     %Q degrès 2
     PolyQ=Q(1).*NewTau+Q(2);
-    
+
     for i=1:n-1 
          y=x(N+i);
          u=x(i);
