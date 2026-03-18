@@ -2,6 +2,7 @@
 Ts = 0.005; % Sampling period
 T = 0.1; % Given T
 k=4;
+tf=3;
 % Define the signal y(t) = sin(t)
 y_func = @(t) sin(t);
 
@@ -12,7 +13,7 @@ P = @(tau) 2 - 3 * tau;
 Q = @(tau, t, T) -60 * (7*t^2 - 14*t*tau + 7*tau.^2 + t*T - T*tau - 2*T^2);
    
 % Define time range
-t_values = 0:Ts:3;
+t_values = 0:Ts:tf;
 
 % Initialize arrays for I1 and I2
 I1_values = zeros(size(t_values));
@@ -38,10 +39,10 @@ screenposition = get(gcf,'Position');
 set(gcf,...
     'PaperPosition',[0 0 screenposition(3:4)],...
     'PaperSize',[screenposition(3:4)]);
-print -dpdf -painters Figures/FigureComputeI1
+print -dpdf -painters /Users/perruquetti/Desktop/Calcul/MATLAB/Enseignement/Centrale/RTE/Book/Chap_MatlabSimulink/Exercises/MatlabSimulink_Exo11/Figures/FigureComputeI1
 
 cleanfigure;
-matlab2tikz('Figures/FigureComputeI1.tex','width','\figwidth','height','\figheight','showInfo',false);
+matlab2tikz('/Users/perruquetti/Desktop/Calcul/MATLAB/Enseignement/Centrale/RTE/Book/Chap_MatlabSimulink/Exercises/MatlabSimulink_Exo11/Figures/FigureComputeI1.tex','width','\figwidth','height','\figheight','showInfo',false);
 
 figure('Name','Integral I2');
 plot(t_values, I2_values, 'r-', 'LineWidth', 0.5);
@@ -55,7 +56,7 @@ screenposition = get(gcf,'Position');
 set(gcf,...
     'PaperPosition',[0 0 screenposition(3:4)],...
     'PaperSize',[screenposition(3:4)]);
-print -dpdf -painters Figures/FigureComputeI2
+print -dpdf -painters /Users/perruquetti/Desktop/Calcul/MATLAB/Enseignement/Centrale/RTE/Book/Chap_MatlabSimulink/Exercises/MatlabSimulink_Exo11/Figures/FigureComputeI2
 
 cleanfigure;
-matlab2tikz('Figures/FigureComputeI2.tex','width','\figwidth','height','\figheight','showInfo',false);
+matlab2tikz('/Users/perruquetti/Desktop/Calcul/MATLAB/Enseignement/Centrale/RTE/Book/Chap_MatlabSimulink/Exercises/MatlabSimulink_Exo11/Figures/FigureComputeI2.tex','width','\figwidth','height','\figheight','showInfo',false);

@@ -16,6 +16,9 @@ Noise.seed=[23341];
 a=2; % amplitude 
 omega=2; % pulsation
 %% Select order of derivative
-n=1; % order of differentiator n+1
+gain=1;
+theta=1;
+alpha=2/3;
+n=2; % order of differentiator n+1
 k=1; % order of derivative estimation (k<=n !!)
 L=a*omega^n; % Lipchitz constant 

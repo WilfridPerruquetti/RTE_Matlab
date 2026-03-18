@@ -9,6 +9,14 @@ a=theta(1)
 b=theta(2)
 R=sqrt(theta(3)+a^2+b^2)
 
+
+% using fitlm
+model=fitlm(C,z);
+
+intercept=model.Coefficients.Estimate(1,1);
+ap=model.Coefficients.Estimate(2,1)
+bp=model.Coefficients.Estimate(3,1)
+Rp=sqrt(intercept+ap^2+bp^2)
 %plot
 t=linspace(0,2*pi,100);
 plot(x,y,"o",a+R*cos(t),b+R*sin(t),"-")
@@ -29,3 +37,4 @@ print -dpdf -painters Figures/FigureCircle
 
 cleanfigure;
 matlab2tikz('Figures/FigureCircle.tex','width','\figwidth','height','\figheight','showInfo',false);
+

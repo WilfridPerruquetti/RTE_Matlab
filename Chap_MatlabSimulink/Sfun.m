@@ -9,7 +9,7 @@ if flag == 1 % If flag = 1, return state derivatives, xDot (xc of dim nc)
     for i=1:nc
         sys(i,1)= f_D(i);
     end
-elseif flag == 2% If flag = 3, return updates (xd of dim nd)
+elseif flag == 2% If flag = 2, return updates (xd of dim nd)
     for i=1:nd
         sys(i,1)= f_U(i);
     end

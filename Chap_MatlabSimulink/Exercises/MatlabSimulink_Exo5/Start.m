@@ -4,7 +4,7 @@ mysimu='MySimulink';
 open_system(mysimu);
 
 %% Select system to simulate
-mysys='InvertedPendulum';
+mysys='MobileRobot30';
 % select system name in the list below
 % 'BallBeam' \eqref{eq:BallBeam1}-\eqref{eq:BallBeam2} with $m=0.1\, [\unit{kg}], J=0.1\, [\unit{kg . m^2}]$,
 % 'VolterraLotka' \eqref{eq:volterra} with $\alpha =\beta =\gamma=\delta =1$,
@@ -124,8 +124,14 @@ u=out.control;
 % dim state
 a=size(out.state);
 % continuous state
+legendname="{'";
 figure('Name','Continuous state')
 for i=1:a(2)
+    if i<a(2)
+        legendname=append(legendname,append("$x_",append(string(i),"$','")));
+    else
+        legendname=append(legendname,append("$x_",append(string(i),"$'}")));
+    end
 plot(t,out.state(:,i));
 hold on;
 end
@@ -133,4 +139,13 @@ end
 title('Continuous state','Interpreter','latex')
 xlabel('$t$','Interpreter','latex')
 ylabel('$x$','Interpreter','latex')
+legend(legendname,'Interpreter','latex');
+
+figurename=['Figures/Figure' mysys '.pdf'];
+saveas(gcf,figurename);
+figurename=['Figures/Figure' mysys '.tex'];
+cleanfigure;
+matlab2tikz(figurename,'width','\figwidth','height','\figheight','showInfo',false);   
+        
+       
 

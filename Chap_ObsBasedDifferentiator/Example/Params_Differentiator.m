@@ -5,7 +5,8 @@ InitParams;
 paramsnHGD.n=n;
 % l(i)=gain(i)*theta^i
 paramsnHGD.gain=[2 1]*2; %n=1
-paramsnHGD.theta=1.4;
+paramsnHGD.gain=[3 3 1]*3; %n =2
+paramsnHGD.theta=5;
 
 % HGDR parameters (n, gain, theta)
 paramsnHGDR.n=n;
@@ -17,7 +18,8 @@ paramsnHGDR.theta=1.5;
 paramsnHOSMD.n=n;
 % ell(i)=gain(i)*theta^(1/(n-i+1))
 paramsnHOSMD.gain=[15 40]; %n=1
-paramsnHOSMD.theta=1.8;
+paramsnHOSMD.gain=[1 4 100]*20; %n=2
+paramsnHOSMD.theta=1.4;
 
 % HomD parameters (n, gain, theta, alpha)
 paramsnHomD.n=n;

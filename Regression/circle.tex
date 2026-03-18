@@ -1,0 +1,156 @@
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and export to LaTeX again.
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{epstopdf}
+\usepackage[table]{xcolor}
+\usepackage{matlab}
+\usepackage[paperheight=795pt,paperwidth=614pt,top=72pt,bottom=72pt,right=72pt,left=72pt,heightrounded]{geometry}
+
+\sloppy
+\epstopdfsetup{outdir=./}
+\graphicspath{ {./circle_media/} }
+
+\begin{document}
+
+\begin{matlabcode}
+clc;
+clear all;
+load('datacircle.mat');
+%least square
+C=[2*x,2*y,ones(100,1)];
+z=x.^2+y.^2;
+theta=C\z;
+a=theta(1)
+\end{matlabcode}
+\begin{matlaboutput}
+a = -0.9744
+\end{matlaboutput}
+\begin{matlabcode}
+b=theta(2)
+\end{matlabcode}
+\begin{matlaboutput}
+b = 1.9784
+\end{matlaboutput}
+\begin{matlabcode}
+R=sqrt(theta(3)+a^2+b^2)
+\end{matlabcode}
+\begin{matlaboutput}
+R = 3.0451
+\end{matlaboutput}
+\begin{matlabcode}
+
+
+% using fitlm
+model=fitlm(C,z);
+
+model 
+\end{matlabcode}
+\begin{matlaboutput}
+model = 
+Linear regression model:
+    y ~ 1 + x1 + x2 + x3
+
+Estimated Coefficients:
+                   Estimate       SE        tStat       pValue  
+                   ________    ________    _______    __________
+    (Intercept)     4.4094      0.23915     18.437    2.6264e-33
+    x1             -0.9744     0.038198    -25.509    1.5024e-44
+    x2              1.9784     0.038663      51.17      1.78e-71
+    x3                   0            0        NaN           NaN
+
+Number of observations: 100, Error degrees of freedom: 97
+Root Mean Squared Error: 1.65
+R-squared: 0.971,  Adjusted R-Squared: 0.97
+F-statistic vs. constant model: 1.63e+03, p-value = 2.44e-75
+\end{matlaboutput}
+\begin{matlabcode}
+
+anovaOFmodel=anova(model,'summary')
+\end{matlabcode}
+\begin{matlabtableoutput}
+{
+\begin{tabular} {|c|c|c|c|c|c|}\hline
+\mlcell{ } & \mlcell{SumSq} & \mlcell{DF} & \mlcell{MeanSq} & \mlcell{F} & \mlcell{pValue} \\ \hline
+\mlcell{1 Total} & \mlcell{9.1764e+03} & \mlcell{99} & \mlcell{92.6905} & \mlcell{NaN} & \mlcell{NaN} \\ \hline
+\mlcell{2 Model} & \mlcell{8.9107e+03} & \mlcell{2} & \mlcell{4.4554e+03} & \mlcell{1.6270e+03} & \mlcell{2.4415e-75} \\ \hline
+\mlcell{3 Residual} & \mlcell{265.6265} & \mlcell{97} & \mlcell{2.7384} & \mlcell{NaN} & \mlcell{NaN} \\ 
+\hline
+\end{tabular}
+}
+\end{matlabtableoutput}
+\begin{matlabcode}
+
+model.Coefficients
+\end{matlabcode}
+\begin{matlabtableoutput}
+{
+\begin{tabular} {|c|c|c|c|c|}\hline
+\mlcell{ } & \mlcell{Estimate} & \mlcell{SE} & \mlcell{tStat} & \mlcell{pValue} \\ \hline
+\mlcell{1 (Intercept)} & \mlcell{4.4094} & \mlcell{0.2392} & \mlcell{18.4372} & \mlcell{2.6264e-33} \\ \hline
+\mlcell{2 x1} & \mlcell{-0.9744} & \mlcell{0.0382} & \mlcell{-25.5089} & \mlcell{1.5024e-44} \\ \hline
+\mlcell{3 x2} & \mlcell{1.9784} & \mlcell{0.0387} & \mlcell{51.1698} & \mlcell{1.7800e-71} \\ \hline
+\mlcell{4 x3} & \mlcell{0} & \mlcell{0} & \mlcell{NaN} & \mlcell{NaN} \\ 
+\hline
+\end{tabular}
+}
+\end{matlabtableoutput}
+\begin{matlabcode}
+
+%model.Diagnostics
+
+intercept=model.Coefficients.Estimate(1,1);
+ap=model.Coefficients.Estimate(2,1)
+\end{matlabcode}
+\begin{matlaboutput}
+ap = -0.9744
+\end{matlaboutput}
+\begin{matlabcode}
+bp=model.Coefficients.Estimate(3,1)
+\end{matlabcode}
+\begin{matlaboutput}
+bp = 1.9784
+\end{matlaboutput}
+\begin{matlabcode}
+Rp=sqrt(intercept+ap^2+bp^2)
+\end{matlabcode}
+\begin{matlaboutput}
+Rp = 3.0451
+\end{matlaboutput}
+\begin{matlabcode}
+
+%plot
+t=linspace(0,2*pi,100);
+plot(x,y,"o",a+R*cos(t),b+R*sin(t),"-")
+xlim([-5 3])
+ylim([-2 6])
+grid on
+daspect([1 1 1])
+
+legend({'Data','$(x-a)^2+(y-b)^2=R^2$'},'interpreter','latex','Location','southwest')
+
+saveas(gcf,'Figures/FigureCircle.pdf')
+set(gcf,'Units','centimeters');
+screenposition = get(gcf,'Position');
+set(gcf,...
+    'PaperPosition',[0 0 screenposition(3:4)],...
+    'PaperSize',[screenposition(3:4)]);
+print -dpdf -painters Figures/FigureCircle
+
+cleanfigure;
+matlab2tikz('Figures/FigureCircle.tex','width','\figwidth','height','\figheight','showInfo',false);
+\end{matlabcode}
+\begin{center}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_0.eps}
+\end{center}
+
+\end{document}

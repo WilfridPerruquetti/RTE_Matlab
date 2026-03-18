@@ -1,17 +1,17 @@
-function [sys,x0,str,ts,simStateCompliance] = BouncingBallModel(t,x,u,flag,Params)
+function [sys,x0,str,ts] = BouncingBallModel(t,x,u,flag)
     % Bouncing Ball Parameters
     g = 9.81;   % Acceleration due to gravity (m/s^2)
     e = 0.8;    % Coefficient of restitution
 
     switch flag,
         case 0, % Initialization
-            [sys, x0, str, ts, simStateCompliance] = mdlInitializeSizes;
+            [sys, x0, str, ts] = mdlInitializeSizes;
 
         case 1, % Derivatives
-            sys = mdlDerivatives(t, x, u, g,e);
+            sys = mdlDerivatives(t, x, u, g, e);
 
-        % case 2, % Update
-        %     sys = mdlUpdate(t, x, u, e);
+        case 2, % Update
+            sys = mdlUpdate(t, x, u);
 
         case 3, % Outputs
             sys = mdlOutputs(t, x, u);
@@ -28,51 +28,61 @@ function [sys,x0,str,ts,simStateCompliance] = BouncingBallModel(t,x,u,flag,Param
         otherwise
             error(['Unhandled flag = ', num2str(flag)]);
     end
-end
 
 % Initialization
-function [sys, x0, str, ts, simStateCompliance] = mdlInitializeSizes
+function [sys, x0, str, ts] = mdlInitializeSizes
     sizes = simsizes;
     sizes.NumContStates  = 2;
-    sizes.NumDiscStates  = 0;
-    sizes.NumOutputs     = 2;
+    sizes.NumDiscStates  = 1;
+    sizes.NumOutputs     = 3;
     sizes.NumInputs      = 1;
     sizes.DirFeedthrough = 0;
     sizes.NumSampleTimes = 1;
 
     sys = simsizes(sizes);
-    x0  = [10; 0]; % Initial conditions: height 10m, velocity 0m/s
+    % Initial conditions: 
+    % height 10m, 
+    % velocity 0m/s 
+    % the last component is the Initial discrete state (not bounced)
+    x0  = [10; 0; 0];
     str = [];
     ts  = [0 0];
-    simStateCompliance = 'UnknownSimState';
-end
+    %simStateCompliance = 'UnknownSimState';
 
 % Derivatives
-function sys = mdlDerivatives(t, x, u, g,e)
-    y = x(1);
+function sys = mdlDerivatives(t, x, u, g, e)
     v = x(2);
-    if abs(y) <= 1e-2 && v < 0
-        v = -e * abs(v);
+    bounceDetected = x(3);
+    if bounceDetected==1
+        v = e * abs(v);      % Update velocity after impact
+    else
+        v = v;
+    end;
+
+    while x(1)<=0
+        v=1;
     end
+
+    
     dy = v;
     dv = -g;
     sys = [dy; dv];
-end
 
 % Update
-% function sys = mdlUpdate(t, x, u, e)
-%     y = x(1);
-%     v = x(2);
-%     if abs(y) <= 1e-3 && v < 0
-%         v = -e * abs(v);
-%     end
-%     sys = v;
-% end
+function sys = mdlUpdate(t, x, u)
+    y = x(1);
+    v = x(2);
+    bounceDetected = x(3);
+    % Detect bounce
+    if y <=0 && v < 0 && bounceDetected == 0  % Collision occurs and not already bounced
+        sys = 1;      % Set discrete state to indicate bounce detected
+    else
+        sys = 0;      % Reset discrete state when above ground
+    end   
 
 % Outputs
 function sys = mdlOutputs(t, x, u)
-    sys = [x(1); x(2)];
-end
+    sys = [x(1); x(2);x(3)];
 
 % % GetTimeOfNextVarHit
 % function sys = mdlGetTimeOfNextVarHit(t, x, u)
@@ -85,3 +95,7 @@ end
 %     y = x(1);
 %     sys = y;
 % end
+
+
+
+
