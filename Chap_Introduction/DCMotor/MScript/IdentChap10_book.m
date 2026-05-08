@@ -63,9 +63,9 @@ disp(['NLINFIT result: k=',num2str(k),', tau=',num2str(tau),',R2=',num2str(R2)])
 % simulated data with the obtained parameters 'r'
 % simulated data with the chosen nominal parameters 'g'
 figure;
-plot(t,omegab,'r',t,yest1,'b',t,yest2,'g');
+plot(t(1:1600),omegab(1:1600),'r',t(1:1600),yest1(1:1600),'b',t(1:1600),yest2(1:1600),'g');
 grid on;
-legend('mesured value','simulated with param 1','simulated with param 2','location','southeast');
+legend('mesured value','simulated with param 1 (lin reg.)','simulated with param 2 (nonlin. reg.)','location','southeast');
 xlabel('$t$ [s]','Interpreter','latex');
 ylabel('$\omega$ [rad]','Interpreter','latex');
-
+saveas(gcf,'../Figures/FigureIdentComp.pdf')

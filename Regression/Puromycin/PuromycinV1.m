@@ -34,13 +34,13 @@ yu=(theta1u.*t)./(theta2u+t);
 plot(t,yt,'red',t,yu,'magenta')
 legend({'Data enzyme treated','Data enzyme untreated','$y=\frac{\theta_1 x}{\theta_2+x}, \theta_1=216,62, \theta_2=0.0722$', 'id. with $\theta_1=160.28, \theta_2=0.0477$'},'interpreter','latex','Location','southeast')
 
-saveas(gcf,'Figures/FigurePuromycin.pdf')
+saveas(gcf,'FigurePuromycin.pdf')
 set(gcf,'Units','centimeters');
 screenposition = get(gcf,'Position');
 set(gcf,...
     'PaperPosition',[0 0 screenposition(3:4)],...
     'PaperSize',[screenposition(3:4)]);
-print -dpdf -painters Figures/FigurePuromycin
+print -dpdf -painters FigurePuromycin
 
 cleanfigure;
-matlab2tikz('Figures/FigurePuromycin.tex','width','\figwidth','height','\figheight','showInfo',false);
+matlab2tikz('FigurePuromycin.tex','width','\figwidth','height','\figheight','showInfo',false);
