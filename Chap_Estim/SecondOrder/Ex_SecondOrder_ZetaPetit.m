@@ -56,4 +56,10 @@
 	grid on; xlabel('Time [s]','interpreter','latex'); ylabel('Output','interpreter','latex');
 	legend('Measured data','Estimated model','Location','best','interpreter','latex');
 	title('Underdamped second-order identification','interpreter','latex');
-    saveas(gcf,'FigureEx_SecondOrder_ZetaPetit.pdf')
+    %saveas(gcf,'FigureEx_SecondOrder_ZetaPetit.pdf')
+    set(gcf,'Units','centimeters');
+screenposition = get(gcf,'Position');
+set(gcf,...
+    'PaperPosition',[0 0 screenposition(3:4)],...
+    'PaperSize',[screenposition(3:4)]);
+print -dpdf -painters FigureEx_SecondOrder_ZetaPetit

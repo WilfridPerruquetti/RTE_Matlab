@@ -55,4 +55,10 @@ plot(t,y,'b',t,yhat,'r--','LineWidth',1.2);
 grid on; xlabel('Time [s]','interpreter','latex'); ylabel('Output','interpreter','latex');
 legend('Measured data','Estimated model','Location','best','interpreter','latex');
 title('Overdamped second-order identification','interpreter','latex');
-saveas(gcf,'FigureEx_SecondOrder_ZetaGrand.pdf')
+%saveas(gcf,'FigureEx_SecondOrder_ZetaGrand.pdf')
+set(gcf,'Units','centimeters');
+screenposition = get(gcf,'Position');
+set(gcf,...
+    'PaperPosition',[0 0 screenposition(3:4)],...
+    'PaperSize',[screenposition(3:4)]);
+print -dpdf -painters FigureEx_SecondOrder_ZetaGrand
