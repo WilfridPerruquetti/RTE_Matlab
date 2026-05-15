@@ -1,5 +1,9 @@
 clear; clc; close all;
 
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+
 caseName = 'ObsAlgLin3';
 polesObs = [-4 -5];
 a1obs = -sum(polesObs);

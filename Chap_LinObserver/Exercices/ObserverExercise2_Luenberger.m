@@ -1,4 +1,8 @@
-	A = [0 1 0 0;
+set(groot, 'defaultTextInterpreter', 'latex');
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+set(groot, 'defaultLegendInterpreter', 'latex');
+
+A = [0 1 0 0;
      0 0 -g 0;
      0 0 0 1;
      -m*g/J 0 0 0];
