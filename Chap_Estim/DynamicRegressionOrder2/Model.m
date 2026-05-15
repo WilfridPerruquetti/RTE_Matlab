@@ -39,6 +39,6 @@ IC.state=[IC.x1;IC.x2];
 
 % Noise
 Noise.biais=0;
-Noise.power=[3e-12];
+Noise.power=[1e-12];
 Noise.sampling=Ts*40;
 Noise.seed=[23341];
